@@ -2,10 +2,7 @@ require("dotenv").config();
 const config = require("./config.json");
 const mongoose = require("mongoose");
 
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(config.connnectionString);
 
 const User = require("./models/user.model");
 const Note = require("./models/note.model");
@@ -21,7 +18,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "https://makemynotes.vercel.app" || "*",
+    origin: "*",
   })
 );
 
@@ -115,7 +112,7 @@ app.post("/login", async (req, res) => {
 //get user
 app.get("/get-user", authenticateToken, async (req, res) => {
   try {
-    const { user } = req.user; // ✅ directly assign
+    const { user } = req.user;
     const isUser = await User.findOne({ _id: user._id });
 
     if (!isUser) {
@@ -317,6 +314,12 @@ app.get("/search-notes", authenticateToken, async (req, res) => {
       message: "Internal server error",
     });
   }
+});
+
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`server running on ${PORT}`);
 });
 
 module.exports = app;
