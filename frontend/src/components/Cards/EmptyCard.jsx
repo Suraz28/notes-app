@@ -4,7 +4,7 @@ const EmptyCard = ({ message }) => {
   return (
     <div className="flex flex-col items-center justify-center mt-20">
       <img
-        src="/src/assets/images/empty_data_icon_149938.png"
+        src="./assets/images/empty_data_icon_149938.png"
         alt="No Notes"
         className="w-60 h-50 text-gray-300"
       />
