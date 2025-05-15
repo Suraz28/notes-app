@@ -315,10 +315,11 @@ app.get("/search-notes", authenticateToken, async (req, res) => {
     });
   }
 });
-const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-  console.log(`server running on ${PORT}`);
-});
+// const PORT = process.env.PORT || 3000;
+
+// app.listen(PORT, () => {
+//   console.log(`server running on ${PORT}`);
+// });
 
 module.exports = app;
