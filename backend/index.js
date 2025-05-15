@@ -21,7 +21,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "https://makemynotes.vercel.app/",
+    origin: "https://makemynotes.vercel.app",
   })
 );
 
