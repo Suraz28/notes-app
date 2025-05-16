@@ -28,7 +28,9 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "*",
+    origin: process.env.VITE_REACT_APP_FRONTEND_URL,
+    allowedHeaders: ["Content-Type", "Authorization"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
 
