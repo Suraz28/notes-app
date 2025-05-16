@@ -13,10 +13,8 @@ const AddEditNotes = ({
   const [title, setTitle] = useState(noteData?.title || "");
   const [content, setContent] = useState(noteData?.content || "");
   const [tags, setTags] = useState(noteData?.tags || []);
-
   const [error, setError] = useState(null);
 
-  //add note
   const addNewNote = async () => {
     try {
       const response = await axiosInstance.post("add-note", {
@@ -31,13 +29,12 @@ const AddEditNotes = ({
         onClose();
       }
     } catch (error) {
-      if (error.response && error.response.data && error.response.message) {
+      if (error.response?.data?.message) {
         setError(error.response.data.message);
       }
     }
   };
 
-  //edit note
   const editNote = async () => {
     const noteId = noteData._id;
     try {
@@ -53,7 +50,7 @@ const AddEditNotes = ({
         onClose();
       }
     } catch (error) {
-      if (error.response && error.response.data && error.response.message) {
+      if (error.response?.data?.message) {
         setError(error.response.data.message);
       }
     }
@@ -79,44 +76,59 @@ const AddEditNotes = ({
   };
 
   return (
-    <div className="relative">
+    <div className="fixed inset-0 bg-white p-4 mlg:relative mlg:inset-auto mlg:rounded-xl mlg:shadow-lg mlg:max-w-2xl mlg:mx-auto w-full h-full mlg:h-auto mlg:p-6 z-50">
       <button
-        className="w-7 h-7 rounded-full flex items-center justify-center absolute top-5 -right-3 bg-slate-400 hover:bg-red-500 text-gray-200 hover:text-white"
+        className="w-8 h-8 absolute top-4 right-4 bg-gray-300 hover:bg-red-500 rounded-full flex items-center justify-center text-white transition"
         onClick={onClose}
+        aria-label="Close modal"
       >
-        <MdClose className="text-xl" />
+        <MdClose className="text-lg" />
       </button>
-      <div className="flex flex-col gap-2">
-        <label className="input-label">TITLE</label>
+
+      <h2 className="text-xl md:text-2xl font-semibold text-gray-800 mb-4">
+        {type === "edit" ? "Edit Note" : "Add New Note"}
+      </h2>
+
+      <div className="flex flex-col gap-2 mb-4">
+        <label htmlFor="title" className="text-sm text-gray-600 font-medium">
+          Title
+        </label>
         <input
+          id="title"
           type="text"
-          className="text-2xl text-slate-950 outline-none"
-          placeholder="your title..."
+          className="border rounded px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
+          placeholder="Your title..."
           value={title}
           onChange={({ target }) => setTitle(target.value)}
         />
       </div>
-      <div className="flex flex-col gap-2 mt-4">
-        <label className="input-label">CONTENT</label>
+
+      <div className="flex flex-col gap-2 mb-4">
+        <label htmlFor="content" className="text-sm text-gray-600 font-medium">
+          Content
+        </label>
         <textarea
-          type="text"
-          className="text-sm text-slate-950 outline-none bg-slate-50 p-2 rounded"
-          placeholder="write here..."
-          rows={10}
+          id="content"
+          className="border rounded px-3 py-2 text-sm bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-400 resize-none"
+          placeholder="Write here..."
+          rows={6}
           value={content}
           onChange={({ target }) => setContent(target.value)}
         />
       </div>
-      <div className="mt-3">
-        <label className="input-label">TAGS</label>
+
+      <div className="mb-4">
+        <label className="text-sm text-gray-600 font-medium">Tags</label>
         <TagInput tags={tags} setTags={setTags} />
       </div>
-      {error && <p className="text-red-500 text-xs pt-4">{error}</p>}
+
+      {error && <p className="text-red-500 text-xs pt-2">{error}</p>}
+
       <button
-        className="btn-primary font-medium mt-5 p-3"
+        className="w-full md:w-auto mt-5 px-6 py-2 bg-blue-600 text-white font-medium rounded hover:bg-blue-700 transition"
         onClick={handleAddNote}
       >
-        {type === "edit" ? "UPDATE" : "ADD"}
+        {type === "edit" ? "Update Note" : "Add Note"}
       </button>
     </div>
   );

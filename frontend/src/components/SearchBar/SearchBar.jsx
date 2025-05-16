@@ -11,7 +11,7 @@ const SearchBar = ({ value, onChange, handleSearch, onClearSearch }) => {
     }
   };
   return (
-    <div className="relative w-80 flex items-center px-4 bg-white rounded-md">
+    <div className="relative w-60 md:w-80 flex items-center px-4 bg-white rounded-md">
       <input
         type="text"
         placeholder="Search notes..."

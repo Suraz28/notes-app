@@ -10,6 +10,7 @@ export default {
       },
       screens: {
         mobile: "500px",
+        mlg: "950px",
       },
       keyframes: {
         shimmer: {
