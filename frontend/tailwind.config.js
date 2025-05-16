@@ -11,6 +11,15 @@ export default {
       screens: {
         mobile: "500px",
       },
+      keyframes: {
+        shimmer: {
+          "0%": { backgroundPosition: "-400% 0" },
+          "100%": { backgroundPosition: "400% 0" },
+        },
+      },
+      animation: {
+        shimmer: "shimmer 3s ease-in-out infinite",
+      },
     },
   },
   plugins: [],

@@ -5,6 +5,7 @@ import { IoMdPerson } from "react-icons/io";
 import PasswordInput from "../../components/Input/PasswordInput";
 import { Link, useNavigate } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ const SignUp = () => {
   const [passwordError, setPasswordError] = useState(null);
   const [error, setError] = useState(null);
   const [message, setMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const nameValue = (e) => {
     setName(e.target.value);
@@ -32,6 +34,7 @@ const SignUp = () => {
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     if (!name.trim()) {
       setNameError("name field is empty");
@@ -98,6 +101,8 @@ const SignUp = () => {
       setTimeout(() => {
         setError("");
       }, 2500);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -145,8 +150,19 @@ const SignUp = () => {
                 <p className="text-xs pb-2 text-blue-500">{message}</p>
               )}
             </div>
-            <button type="submit" className="btn-primary">
-              Signup
+            <button
+              type="submit"
+              className="btn-primary flex items-center justify-center gap-2"
+              disabled={loading}
+            >
+              {loading ? (
+                <>
+                  <ClipLoader size={20} color="#ffffff" />
+                  <span>Signing Up</span>
+                </>
+              ) : (
+                "SignUp"
+              )}
             </button>
             <p className="text-sm text-center mt-4">
               Already have an account?{" "}

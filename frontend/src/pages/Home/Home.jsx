@@ -8,8 +8,10 @@ import moment from "moment";
 import Toast from "../../components/ToastMessage/Toast";
 import EmptyCard from "../../components/Cards/EmptyCard";
 import { useUser } from "../../Contexts/UserContext";
+import SkeletonNote from "../../components/Skeleton/Skeleton";
 
 const Home = () => {
+  const [loading, setLoading] = useState(false);
   const { allNotes, getAllNotes, isSearch } = useUser();
 
   const [openAddEditModal, setOpenAddEditModal] = useState({
@@ -77,14 +79,24 @@ const Home = () => {
   };
 
   useEffect(() => {
-    getAllNotes();
-    return () => {};
+    const fetchNotes = async () => {
+      setLoading(true);
+      await getAllNotes();
+      setLoading(false);
+    };
+    fetchNotes();
   }, []);
 
   return (
     <>
       <div className="container mx-auto">
-        {allNotes.length > 0 ? (
+        {loading ? (
+          <div className="mt-7 gap-3 w-full grid grid-cols-1 mobile:grid-cols-2 md:grid-cols-3">
+            {[...Array(allNotes.length)].map((_, i) => (
+              <SkeletonNote key={i} />
+            ))}
+          </div>
+        ) : allNotes.length > 0 ? (
           <div className="grid grid-cols-1 mobile:grid-cols-2 md:grid-cols-3 gap-3 mt-8">
             {allNotes.map((item) => (
               <NoteCard
@@ -104,7 +116,7 @@ const Home = () => {
           <EmptyCard
             message={
               isSearch
-                ? "Oops! no such note can be found"
+                ? "Oops! no such notes can be found"
                 : "No notes found. Create your notes by clicking plus icon below"
             }
           />

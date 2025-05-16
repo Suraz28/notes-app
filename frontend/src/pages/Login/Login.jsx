@@ -116,7 +116,14 @@ const Login = () => {
               className="btn-primary flex items-center justify-center gap-2"
               disabled={loading}
             >
-              {loading ? <ClipLoader size={20} color="#ffffff" /> : "Login"}
+              {loading ? (
+                <>
+                  <ClipLoader size={20} color="#ffffff" />
+                  <span>Logging In</span>
+                </>
+              ) : (
+                "Login"
+              )}
             </button>
             <p className="text-sm text-center mt-4">
               Not registered yet?{" "}
