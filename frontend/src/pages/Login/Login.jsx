@@ -58,6 +58,7 @@ const Login = () => {
       }
     } catch (error) {
       //handle login error
+      console.log(error);
       if (
         error.response &&
         error.response.data &&
