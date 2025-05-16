@@ -26,24 +26,9 @@ const { authenticateToken } = require("./utilities");
 
 app.use(express.json());
 
-if (!connectionString) {
-  console.error("MONGODB_URI is not defined in .env");
-  process.exit(1);
-}
-
 app.use(
   cors({
-    origin: (origin, callback) => {
-      const allowedOrigins = ["https://makemynotes.vercel.app"];
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    origin: "https://makemynotes.vercel.app",
   })
 );
 
