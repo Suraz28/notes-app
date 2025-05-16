@@ -38,6 +38,7 @@ const SignUp = () => {
 
     if (!name.trim()) {
       setNameError("name field is empty");
+      setLoading(false);
       setTimeout(() => {
         setNameError("");
       }, 2500);
@@ -46,6 +47,7 @@ const SignUp = () => {
 
     if (!validateEmail(email)) {
       setEmailError("invalid email address");
+      setLoading(false);
       setTimeout(() => {
         setEmailError("");
       }, 2500);
@@ -54,6 +56,7 @@ const SignUp = () => {
 
     if (!validatePassword(password)) {
       setPasswordError("invalid password");
+      setLoading(false);
       setTimeout(() => {
         setPasswordError("");
       }, 2500);

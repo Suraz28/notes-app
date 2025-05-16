@@ -33,6 +33,7 @@ const Login = () => {
 
     if (!validateEmail(email)) {
       setEmailError("invalid email address");
+      setLoading(false);
       setTimeout(() => {
         setEmailError("");
       }, 2500);
@@ -41,6 +42,7 @@ const Login = () => {
 
     if (!validatePassword(password)) {
       setPasswordError("invalid password");
+      setLoading(false);
       setTimeout(() => {
         setPasswordError("");
       }, 2500);
