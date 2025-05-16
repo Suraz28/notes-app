@@ -5,8 +5,11 @@ import { MdOutlineEmail } from "react-icons/md";
 import { validateEmail, validatePassword } from "../../utils/helper";
 import axiosInstance from "../../utils/axiosInstance";
 import { useUser } from "../../Contexts/UserContext";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const Login = () => {
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
   const { getUserInfo } = useUser();
 
@@ -26,6 +29,7 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     if (!validateEmail(email)) {
       setEmailError("invalid email address");
@@ -75,6 +79,8 @@ const Login = () => {
         }, 2500);
         return;
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -105,8 +111,12 @@ const Login = () => {
               <p className="text-xs pb-2 text-red-500">{passwordError}</p>
             )}
             {error && <p className="text-xs pb-2 text-red-500">{error}</p>}
-            <button type="submit" className="btn-primary">
-              Login
+            <button
+              type="submit"
+              className="btn-primary flex items-center justify-center gap-2"
+              disabled={loading}
+            >
+              {loading ? <ClipLoader size={20} color="#ffffff" /> : "Login"}
             </button>
             <p className="text-sm text-center mt-4">
               Not registered yet?{" "}
