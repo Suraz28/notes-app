@@ -14,8 +14,10 @@ const AddEditNotes = ({
   const [content, setContent] = useState(noteData?.content || "");
   const [tags, setTags] = useState(noteData?.tags || []);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const addNewNote = async () => {
+    setLoading(true);
     try {
       const response = await axiosInstance.post("add-note", {
         title,
@@ -32,10 +34,13 @@ const AddEditNotes = ({
       if (error.response?.data?.message) {
         setError(error.response.data.message);
       }
+    } finally {
+      setLoading(false);
     }
   };
 
   const editNote = async () => {
+    setLoading(true);
     const noteId = noteData._id;
     try {
       const response = await axiosInstance.put("edit-note/" + noteId, {
@@ -53,6 +58,8 @@ const AddEditNotes = ({
       if (error.response?.data?.message) {
         setError(error.response.data.message);
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -125,10 +132,20 @@ const AddEditNotes = ({
       {error && <p className="text-red-500 text-xs pt-2">{error}</p>}
 
       <button
-        className="w-full md:w-auto mt-5 px-6 py-2 bg-blue-600 text-white font-medium rounded hover:bg-blue-700 transition"
+        className="w-full md:w-auto mt-5 px-6 py-2 bg-blue-600 text-white font-medium rounded hover:bg-blue-700 transition flex items-center justify-center gap-2"
         onClick={handleAddNote}
+        disabled={loading}
       >
-        {type === "edit" ? "Update Note" : "Add Note"}
+        {loading ? (
+          <>
+            <ClipLoader color="#fff" size={20} />
+            {type === "edit" ? "Updating Note..." : "Adding Note..."}
+          </>
+        ) : type === "edit" ? (
+          "Update Note"
+        ) : (
+          "Add Note"
+        )}
       </button>
     </div>
   );
