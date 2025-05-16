@@ -14,15 +14,15 @@ mongoose
     console.error("MongoDB connection error:", err);
   });
 
-const User = require("./models/user.model");
-const Note = require("./models/note.model");
+const User = require("../models/user.model");
+const Note = require("../models/note.model");
 
 const express = require("express");
 const cors = require("cors");
 const app = express();
 
 const jwt = require("jsonwebtoken");
-const { authenticateToken } = require("./utilities");
+const { authenticateToken } = require("../utilities");
 
 app.use(express.json());
 
