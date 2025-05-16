@@ -55,7 +55,9 @@ const SignUp = () => {
     }
 
     if (!validatePassword(password)) {
-      setPasswordError("invalid password");
+      setPasswordError(
+        "password must be 8 characters containing a number, special character, capital and small letter"
+      );
       setLoading(false);
       setTimeout(() => {
         setPasswordError("");
