@@ -28,11 +28,16 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: process.env.VITE_REACT_APP_FRONTEND_URL,
+    origin: "https://makemynotes.vercel.app",
     allowedHeaders: ["Content-Type", "Authorization"],
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
+
+app.use((req, res, next) => {
+  console.log("Incoming request from origin:", req.headers.origin);
+  next();
+});
 
 app.get("/", (req, res) => {
   res.json({ data: "hello" });
