@@ -53,6 +53,10 @@ JWT_SECRET=your_jwt_secret_key
 backend: npm start
 frontend: npm run dev
 
+## screenshot:
+![image](https://github.com/user-attachments/assets/c9c52835-d828-42d9-8f75-9852a582cedd)
+
+
 
 🔐 Authentication Flow
 Register: User signs up with name, email, and password.
