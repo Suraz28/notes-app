@@ -4,6 +4,10 @@ A full-stack **Note Taking App** built with the **MERN Stack (MongoDB, Express, 
 
 ---
 
+##Screenshot:
+![image](https://github.com/user-attachments/assets/750b0b06-e016-4c5e-8ec7-e20631787385)
+
+
 ## 🚀 Features
 
 - ✅ User Authentication (JWT-based)
@@ -44,7 +48,7 @@ cd mern-note-app
 cd backend
 npm install
 
-##create .env file in the backend/ direactory
+##create .env file in the backend/ directory
 PORT=5000
 MONGO_URI=your_mongo_connection_string(in config.js file)
 JWT_SECRET=your_jwt_secret_key
@@ -53,8 +57,6 @@ JWT_SECRET=your_jwt_secret_key
 backend: npm start
 frontend: npm run dev
 
-## screenshot:
-![image](https://github.com/user-attachments/assets/c9c52835-d828-42d9-8f75-9852a582cedd)
 
 
 
